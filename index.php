@@ -16,10 +16,10 @@ $dateArray = date_parse_from_format('m-d-Y', $dateStr);
 echo $dateArray['day']."-".$dateArray['month']."-".$dateArray['year'];
 echo "<br/>";
 
-$doc = new Documento(Tipologia::ContoDeposito, 2018);
+$doc = new Documento(Tipologia::Ricevuta, 2016);
 $dis = new Distribuzione();
 //$dis->CreaDB();
-//$dis->Aggiungi($doc);
+$dis->Aggiungi($doc);
 
 try {
 
@@ -29,7 +29,7 @@ try {
     //now output the data to a simple html table...
     print "<table border=1 cellpadding=5>";
     print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td></tr>";
-    $result = $db->query('SELECT * FROM Distribuzione');
+    $result = $db->query('SELECT * FROM Distribuzione ORDER BY Anno ASC, Tipologia ASC, Numero ASC');
 
     foreach ($result as $row) {
         print "<tr><td>" . $row['Id'] . "</td>";
