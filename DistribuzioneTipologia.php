@@ -8,6 +8,23 @@ abstract class Tipologia extends BasicEnum
     const Fattura = 1;
     const ContoDeposito = 2;
     const Ricevuta = 3;
+    
+    public static function GetCodice($num) {
+        switch ($num) {
+            case Tipologia::NonDefinito:
+                return "ND";
+                break;
+            case Tipologia::Fattura:
+                return "FE";
+                break;
+            case Tipologia::ContoDeposito:
+                return "CD";
+                break;
+            case Tipologia::Ricevuta:
+                return "RI";
+                break;
+        }
+    }
 }
 
 class DistribuzioneTipologia
