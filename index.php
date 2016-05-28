@@ -29,17 +29,14 @@ $dis = new Distribuzione();
 //$dis->Aggiungi($doc);
 
 // CREA L'OPERA
-$opera = new Opera('Due non è il doppio', 18.40);
+$opera = new Opera('Sogni inquinati', 7);
 //$opera->CreaDB();
-$opera->Aggiungi();
-echo $opera->GetID();
-echo "<br/>";
-echo $opera->GetTitolo();
+//$opera->Aggiungi();
 
 // CREA IL DETTAGLIO
-$disdet = new DistribuzioneDettaglio(23,2,2,35.5);
+$disdet = new DistribuzioneDettaglio($dis,$opera,2,35.5);
 //$disdet->CreaDB();
-//$disdet->Aggiungi($disdet);
+$disdet->Aggiungi($disdet);
 
 try {
 

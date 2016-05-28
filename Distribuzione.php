@@ -29,5 +29,13 @@ class Distribuzione {
             print 'Exception : ' . $e->getMessage();
         }
     }
+    
+    public function GetID() {
+        $db = new PDO('sqlite:helpbook.sqlite');
+        $result = $db->query("SELECT Id FROM Distribuzione WHERE Titolo = '" . $this->titolo."'" );
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $id = $row['Id'];
+        return $id;
+    }
 
 }
