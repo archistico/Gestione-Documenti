@@ -24,7 +24,7 @@ echo "<br/>";
 // CREA IL DOCUMENTO
 $dis = new Distribuzione(Tipologia::Ricevuta, 2016);
 //$dis->CreaDB();
-//$dis->Aggiungi();
+$dis->Aggiungi();
 
 // CREA L'OPERA
 $opera = new Opera('Sogni inquinati', 14.5);
@@ -34,7 +34,7 @@ $opera = new Opera('Sogni inquinati', 14.5);
 // CREA IL DETTAGLIO
 $disdet = new DistribuzioneDettaglio($dis->GetIDbyDistribuzione(Tipologia::Fattura, 3,2016),$opera->GetID(),2,30);
 //$disdet->CreaDB();
-$disdet->Aggiungi();
+//$disdet->Aggiungi();
 
 GetTabellaDistribuzione();
 GetTabellaOpere();
