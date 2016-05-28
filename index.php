@@ -1,5 +1,17 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">   
+        <title>Helpbook - Test</title>
+    </head>
+    <body>
+
 <?php
 
+define('CHARSET', 'UTF-8');
+define('REPLACE_FLAGS', ENT_COMPAT | ENT_XHTML);
+
+include 'Utilita.php';
 include 'Documento.php';
 include 'Distribuzione.php';
 include 'DistribuzioneDettaglio.php';
@@ -21,6 +33,8 @@ $opera = new Opera('Due non è il doppio', 18.40);
 //$opera->CreaDB();
 $opera->Aggiungi();
 echo $opera->GetID();
+echo "<br/>";
+echo $opera->GetTitolo();
 
 // CREA IL DETTAGLIO
 $disdet = new DistribuzioneDettaglio(23,2,2,35.5);
@@ -57,3 +71,7 @@ try {
 
     print 'Exception : ' . $e->getMessage();
 }
+
+?>
+    </body>
+</html>
