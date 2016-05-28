@@ -53,5 +53,29 @@ class Distribuzione {
     public function GetID() {
         return $this->id;
     }
+    
+    
+    // USO $dis->GetIDbyDistribuzione(Tipologia::ContoDeposito, 2, 2016);
+    public function GetIDbyDistribuzione($tipologia, $numero, $anno){
+        try {
+            //open the database
+            $db = new PDO('sqlite:helpbook.sqlite');
+            
+            //Cerca il numero più alto della distribuzione dello stesso anno e stesso tipo
+            $result = $db->query('SELECT Id FROM Distribuzione WHERE Anno = '.$anno.' AND Tipologia = '.$tipologia .' AND numero = '.$numero);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            $risultato = $row['Id'];
+            $this->id = $risultato;
+
+            // close the database connection
+            $db = NULL;
+            
+            return $this->id;
+            
+        } catch (PDOException $e) {
+
+            print 'Exception : ' . $e->getMessage();
+        }
+    }
 
 }

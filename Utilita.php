@@ -18,7 +18,7 @@ function GetTabellaDistribuzione(){
 
     foreach ($result as $row) {
         print "<tr><td>" . $row['Id'] . "</td>";
-        $t = new TipologiaDocumento($row['Tipologia']);
+        $t = new DistribuzioneTipologia($row['Tipologia']);
         print "<td>" . $t->GetTipologia() . "</td>";
         print "<td>" . $row['Numero'] . "</td>";
         print "<td>" . $row['Anno'] . "</td>";

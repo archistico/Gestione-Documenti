@@ -23,20 +23,20 @@ echo "<br/>";
 
 // CREA IL DOCUMENTO
 $dis = new Distribuzione(Tipologia::Ricevuta, 2016);
-$dis->CreaDB();
-$dis->Aggiungi();
+//$dis->CreaDB();
+//$dis->Aggiungi();
 
 // CREA L'OPERA
-//$opera = new Opera('Sogni inquinati', 7);
+$opera = new Opera('Il musicista', 14.5);
 //$opera->CreaDB();
 //$opera->Aggiungi();
 
 // CREA IL DETTAGLIO
-//$disdet = new DistribuzioneDettaglio($dis->GetID(),$opera->GetID(),2,35.5);
-//$disdet->CreaDB();
-//$disdet->Aggiungi($disdet);
+$disdet = new DistribuzioneDettaglio($dis->GetIDbyDistribuzione(Tipologia::Fattura, 4,2016),$opera->GetID(),2,35.5);
+$disdet->CreaDB();
+$disdet->Aggiungi($disdet);
 
-
+GetTabellaDistribuzione();
 
 ?>
     </body>
