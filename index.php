@@ -1,14 +1,8 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 27/05/16
- * Time: 16.58
- */
 include 'Documento.php';
 include 'Distribuzione.php';
-
+include 'DistribuzioneDettaglio.php';
 
 $date = new DateTime();
 $dateStr = $date->format('m-d-Y');
@@ -16,10 +10,22 @@ $dateArray = date_parse_from_format('m-d-Y', $dateStr);
 echo $dateArray['day']."-".$dateArray['month']."-".$dateArray['year'];
 echo "<br/>";
 
+// CREA IL DOCUMENTO
 $doc = new Documento(Tipologia::Ricevuta, 2016);
 $dis = new Distribuzione();
 //$dis->CreaDB();
-$dis->Aggiungi($doc);
+//$dis->Aggiungi($doc);
+
+// CREA L'OPERA
+$opera = new Opera('Due non è il doppio', 18.40);
+//$opera->CreaDB();
+$opera->Aggiungi();
+echo $opera->GetID();
+
+// CREA IL DETTAGLIO
+$disdet = new DistribuzioneDettaglio(23,2,2,35.5);
+//$disdet->CreaDB();
+//$disdet->Aggiungi($disdet);
 
 try {
 

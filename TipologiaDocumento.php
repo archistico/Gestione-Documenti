@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 27/05/16
- * Time: 17.19
- */
 require('BasicEnum.php');
 
 abstract class Tipologia extends BasicEnum

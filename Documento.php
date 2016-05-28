@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 27/05/16
- * Time: 16.55
- */
-
 require('TipologiaDocumento.php');
 
 class Documento {

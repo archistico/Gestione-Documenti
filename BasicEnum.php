@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 27/05/16
- * Time: 17.46
- */
 abstract class BasicEnum {
     private static $constCacheArray = NULL;
 
