@@ -12,7 +12,6 @@ define('CHARSET', 'UTF-8');
 define('REPLACE_FLAGS', ENT_COMPAT | ENT_XHTML);
 
 include 'Utilita.php';
-include 'Documento.php';
 include 'Distribuzione.php';
 include 'DistribuzioneDettaglio.php';
 
@@ -23,51 +22,21 @@ echo $dateArray['day']."-".$dateArray['month']."-".$dateArray['year'];
 echo "<br/>";
 
 // CREA IL DOCUMENTO
-$doc = new Documento(Tipologia::Ricevuta, 2016);
-$dis = new Distribuzione();
-//$dis->CreaDB();
-//$dis->Aggiungi($doc);
+$dis = new Distribuzione(Tipologia::Ricevuta, 2016);
+$dis->CreaDB();
+$dis->Aggiungi();
 
 // CREA L'OPERA
-$opera = new Opera('Sogni inquinati', 7);
+//$opera = new Opera('Sogni inquinati', 7);
 //$opera->CreaDB();
 //$opera->Aggiungi();
 
 // CREA IL DETTAGLIO
-$disdet = new DistribuzioneDettaglio($dis,$opera,2,35.5);
+//$disdet = new DistribuzioneDettaglio($dis->GetID(),$opera->GetID(),2,35.5);
 //$disdet->CreaDB();
-$disdet->Aggiungi($disdet);
+//$disdet->Aggiungi($disdet);
 
-try {
 
-    //open the database
-    $db = new PDO('sqlite:helpbook.sqlite');
-      
-    //now output the data to a simple html table...
-    print "<table border=1 cellpadding=5>";
-    print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td></tr>";
-    $result = $db->query('SELECT * FROM Distribuzione ORDER BY Anno ASC, Tipologia ASC, Numero ASC');
-
-    foreach ($result as $row) {
-        print "<tr><td>" . $row['Id'] . "</td>";
-        $t = new TipologiaDocumento($row['Tipologia']);
-        print "<td>" . $t->GetTipologia() . "</td>";
-        print "<td>" . $row['Numero'] . "</td>";
-        print "<td>" . $row['Anno'] . "</td>";
-        $num_padded = sprintf("%03d", $row['Numero']);
-        print "<td>" . $row['Anno'] . "-" . $t->GetCodice() . "-" . $num_padded . "</td>";
-        print "</tr>";
-    }
-
-    print "</table>";
-
-    // close the database connection
-
-    $db = NULL;
-} catch (PDOException $e) {
-
-    print 'Exception : ' . $e->getMessage();
-}
 
 ?>
     </body>

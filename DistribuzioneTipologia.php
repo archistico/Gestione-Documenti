@@ -10,7 +10,7 @@ abstract class Tipologia extends BasicEnum
     const Ricevuta = 3;
 }
 
-class TipologiaDocumento
+class DistribuzioneTipologia
 {
     public $tipologia;
 
