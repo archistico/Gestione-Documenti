@@ -5,7 +5,9 @@
         <title>Helpbook - Test</title>
     </head>
     <body>
-
+        
+        <p>Nuova distribuzione<br/><a href="distribuzioneNuova.php">NUOVO</a></p>
+        
 <?php
 
 define('CHARSET', 'UTF-8');
@@ -24,7 +26,7 @@ echo "<br/>";
 // CREA IL DOCUMENTO
 $dis = new Distribuzione(Tipologia::Ricevuta, 2016);
 //$dis->CreaDB();
-$dis->Aggiungi();
+//$dis->Aggiungi();
 
 // CREA L'OPERA
 $opera = new Opera('Sogni inquinati', 14.5);

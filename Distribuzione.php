@@ -45,9 +45,9 @@ class Distribuzione {
             // close the database connection
             $db = NULL;
         } catch (PDOException $e) {
-
             print 'Exception : ' . $e->getMessage();
         }
+        return true;
     }
     
     public function GetID() {
