@@ -14,7 +14,7 @@ function GetTabellaDistribuzione() {
         //now output the data to a simple html table...
         print "<h3>Tabella Distribuzione</h3>";
         print "<table border=1 cellpadding=5>";
-        print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td><td>Dettaglio</td></tr>";
+        print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td><td>Dettaglio documento</td></tr>";
         $result = $db->query('SELECT * FROM Distribuzione ORDER BY Anno ASC, Tipologia ASC, Numero ASC');
 
         foreach ($result as $row) {
@@ -123,7 +123,7 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         $db = new PDO('sqlite:helpbook.sqlite');
 
         //now output the data to a simple html table...
-        print "<h3>Tabella Distribuzione dettaglio</h3>";
+        print "<h3>Tabella Distribuzione dettaglio - Generale</h3>";
         print "<table border=1 cellpadding=5>";
         print "<tr><td>Id</td><td>Codice</td><td>Opera</td><td>Prezzo Unitario</td><td>Quantita</td><td>Sconto</td><td>Totale</td></tr>";
         $result = $db->query('SELECT DistribuzioneDettaglio.id As IDdettaglio, DistribuzioneDettaglio.*, Distribuzione.*, Opera.* FROM DistribuzioneDettaglio, Distribuzione, Opera WHERE DistribuzioneDettaglio.fkDistribuzione = Distribuzione.Id AND DistribuzioneDettaglio.fkOpera = Opera.Id ORDER BY fkDistribuzione ASC');
@@ -131,6 +131,7 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         //DistribuzioneDettaglio (fkDistribuzione, fkOpera, quantita, sconto)
 
         $totaleDistribuzione = 0;
+        $suddivisione = array();
 
         foreach ($result as $row) {
             print "<tr><td>" . $row['IDdettaglio'] . "</td>";
@@ -146,6 +147,10 @@ function GetTabellaDistribuzioneDettaglioTotale() {
             $totale = $prezzo * $quantita * $sconto;
             $totale = round($totale*100)/100;
             $totaleDistribuzione += $totale;
+            if(isset($suddivisione[(string)$row['Anno']]))
+                $suddivisione[(string)$row['Anno']]+=$totale;
+            else
+                $suddivisione[(string)$row['Anno']]=$totale;
             print "<td><strong>&euro; " . $totale . "</strong></td>";
             print "</tr>";
         }
@@ -153,6 +158,11 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         print "</table>";
         print "<h3>TOTALE: &euro; ".$totaleDistribuzione."</h3>";
 
+        print "<h3>SUDDIVISIONE PER ANNI</h3>";
+        foreach($suddivisione as $key => $value)
+        {
+            print "<p>".$key." - &euro; ". $value."</p>";
+        }
         // close the database connection
 
         $db = NULL;
