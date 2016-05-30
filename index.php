@@ -41,6 +41,7 @@ $disdet = new DistribuzioneDettaglio($dis->GetIDbyDistribuzione(Tipologia::Fattu
 GetTabellaDistribuzione();
 GetTabellaOpere();
 GetTabellaDistribuzioneDettaglioTotale();
+GetTabellaOperePiuVendute()
 
 ?>
     </body>
