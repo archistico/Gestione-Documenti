@@ -33,6 +33,7 @@
     <button type="submit" > INSERISCI</button></br>
     <?php
     GetTabellaDistribuzioneDettaglio($idDistribuzione);
+    echo "<br/><a href='index.php'>TORNA INDIETRO</a>";
     ?>
 </form>
 </body>

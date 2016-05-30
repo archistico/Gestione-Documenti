@@ -27,6 +27,7 @@
             <button type="submit" > INSERISCI</button></br>
             <?php 
                 GetTabellaDistribuzione();
+                echo "<br/><a href='index.php'>TORNA INDIETRO</a>";
             ?>
         </form>
     </body>

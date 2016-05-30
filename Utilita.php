@@ -14,7 +14,7 @@ function GetTabellaDistribuzione() {
         //now output the data to a simple html table...
         print "<h3>Tabella Distribuzione</h3>";
         print "<table border=1 cellpadding=5>";
-        print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td><td>Dettaglio documento</td></tr>";
+        print "<tr><td>Id</td><td>Tipologia</td><td>Numero</td><td>Anno</td><td>Codice</td><td>Dettaglio documento</td><td>Elimina</td></tr>";
         $result = $db->query('SELECT * FROM Distribuzione ORDER BY Anno ASC, Tipologia ASC, Numero ASC');
 
         foreach ($result as $row) {
@@ -26,6 +26,7 @@ function GetTabellaDistribuzione() {
             $num_padded = sprintf("%03d", $row['Numero']);
             print "<td>" . $row['Anno'] . "-" . $t->GetCodice() . "-" . $num_padded . "</td>";
             print "<td><a href=DistribuzioneDettaglioNuova.php?idDistribuzione=" . $row['Id'] . ">Aggiungi/Visualizza</a></td>";
+            print "<td><a href=DistribuzioneElimina.php?idDistribuzione=" . $row['Id'] . ">Elimina</a></td>";
             print "</tr>";
         }
 
@@ -159,7 +160,7 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         print "</table>";
         print "<h3>TOTALE: &euro; ".$totaleDistribuzione."</h3>";
 
-        print "<h3>SUDDIVISIONE PER ANNI</h3>";
+        print "<h3>VALORE DISTRIBUITO PER ANNI</h3>";
         foreach($suddivisione as $key => $value)
         {
             print "<p>".$key." - &euro; ". $value."</p>";

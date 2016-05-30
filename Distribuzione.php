@@ -77,5 +77,23 @@ class Distribuzione {
             print 'Exception : ' . $e->getMessage();
         }
     }
+    
+    public function Elimina($IdDistribuzione) {
+        try {
+            //open the database
+            $db = new PDO('sqlite:helpbook.sqlite');
+            
+            //Cancella prima le distribuzioni dettaglio
+            $db->exec("DELETE FROM DistribuzioneDettaglio WHERE fkDistribuzione=".$IdDistribuzione.";");
+            //Cancella la distribuzione
+            $db->exec("DELETE FROM Distribuzione WHERE Id=".$IdDistribuzione.";");
+            
+            // close the database connection
+            $db = NULL;
+        } catch (PDOException $e) {
+            print 'Exception : ' . $e->getMessage();
+        }
+        return true;
+    }
 
 }
