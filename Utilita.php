@@ -189,14 +189,15 @@ function GetTabellaOperePiuVendute() {
         //now output the data to a simple html table...
         print "<h3>Tabella Opere più vendute</h3>";
         print "<table border=1 cellpadding=5>";
-        print "<tr><td>Titolo</td><td>Venduti</td><td>Conto deposito</td></tr>";
-        $result =  $db->query('SELECT O.Titolo, D.Tipologia, DD.quantita FROM Distribuzione D, DistribuzioneDettaglio DD, Opera O WHERE O.Id=DD.fkOpera AND D.Id=DD.fkDistribuzione ORDER BY O.Titolo ASC');
+        print "<tr><td>Titolo</td><td>Venduti</td><td>Conto deposito</td><td>Montante venduto</td></tr>";
+        $result =  $db->query('SELECT O.Titolo, O.Prezzo, D.Tipologia, DD.quantita, DD.sconto FROM Distribuzione D, DistribuzioneDettaglio DD, Opera O WHERE O.Id=DD.fkOpera AND D.Id=DD.fkDistribuzione ORDER BY O.Titolo ASC');
         
         class OperaConteggio
         {
             public $titolo;
             public $venduti;
             public $contodeposito;
+            public $montantevenduto;
         }
         
         $conteggio = array();
@@ -208,9 +209,19 @@ function GetTabellaOperePiuVendute() {
                 $conteggio[$row['Titolo']]->titolo = $row['Titolo'];
                 $conteggio[$row['Titolo']]->venduti += 0;
                 $conteggio[$row['Titolo']]->contodeposito += 0;
+                $conteggio[$row['Titolo']]->montantevenduto += 0;
             }
             if($row['Tipologia']==1 || $row['Tipologia']==3){
                 $conteggio[$row['Titolo']]->venduti += $row['quantita'];
+                
+                $prezzo = $row['Prezzo'];
+                $quantita = $row['quantita'];
+                $sconto = 1 - $row['sconto'] / 100;
+                
+                $totale = $prezzo * $quantita * $sconto;
+                $totale = round($totale * 100) / 100;
+                
+                $conteggio[$row['Titolo']]->montantevenduto += $totale;
             }
             if($row['Tipologia']==2){
                 $conteggio[$row['Titolo']]->contodeposito += $row['quantita'];
@@ -221,6 +232,7 @@ function GetTabellaOperePiuVendute() {
             print "<td>" . $row->titolo . "</td>";
             print "<td>" . $row->venduti . "</td>";
             print "<td>" . $row->contodeposito . "</td>";
+            print "<td>&euro; " . $row->montantevenduto . "</td>";
             print "</tr>";
             
         }
