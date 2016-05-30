@@ -138,21 +138,27 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         foreach ($result as $row) {
             print "<tr><td>" . $row['IDdettaglio'] . "</td>";
             $num_padded = sprintf("%03d", $row['Numero']);
-            print "<td>" . $row['Anno'] . "-" . Tipologia::GetCodice($row['Tipologia']) ."-". $num_padded . "</td>";
+            print "<td>" . $row['Anno'] . "-" . Tipologia::GetCodice($row['Tipologia']) . "-" . $num_padded . "</td>";
             print "<td>" . $row['Titolo'] . "</td>";
             print "<td>&euro; " . $row['Prezzo'] . "</td>";
             print "<td>" . $row['quantita'] . "</td>";
             print "<td>" . $row['sconto'] . "</td>";
             $prezzo = $row['Prezzo'];
             $quantita = $row['quantita'];
-            $sconto =  1-$row['sconto']/100;
-            $totale = $prezzo * $quantita * $sconto;
-            $totale = round($totale*100)/100;
-            $totaleDistribuzione += $totale;
-            if(isset($suddivisione[(string)$row['Anno']]))
-                $suddivisione[(string)$row['Anno']]+=$totale;
-            else
-                $suddivisione[(string)$row['Anno']]=$totale;
+            $sconto = 1 - $row['sconto'] / 100;
+            if (Tipologia::GetCodice($row['Tipologia']) != "CD") {
+                $totale = $prezzo * $quantita * $sconto;
+                $totale = round($totale * 100) / 100;
+                $totaleDistribuzione += $totale;
+                if (isset($suddivisione[(string)$row['Anno']])){
+                    $suddivisione[(string) $row['Anno']]+=$totale;
+                }
+                else {
+                    $suddivisione[(string) $row['Anno']] = $totale;
+                }
+            } else {
+                $totale = 0;
+            }
             print "<td><strong>&euro; " . $totale . "</strong></td>";
             print "</tr>";
         }
@@ -160,7 +166,7 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         print "</table>";
         print "<h3>TOTALE: &euro; ".$totaleDistribuzione."</h3>";
 
-        print "<h3>VALORE DISTRIBUITO PER ANNI</h3>";
+        print "<h3>VENDUTO SUDDIVISO ANNI</h3>";
         foreach($suddivisione as $key => $value)
         {
             print "<p>".$key." - &euro; ". $value."</p>";
