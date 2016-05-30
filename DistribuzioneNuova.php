@@ -5,7 +5,7 @@
         <title>Helpbook - Test</title>
     </head>
     <body>
-        <form name="formDati" action="distribuzioneAggiungi.php" method="get">        
+        <form name="formDati" action="DistribuzioneAggiungi.php" method="get">        
             <?php
             define('CHARSET', 'UTF-8');
             define('REPLACE_FLAGS', ENT_COMPAT | ENT_XHTML);
@@ -19,7 +19,7 @@
             Database::ListaAnni();
             
             echo "<h2>Seleziona tipologia</h2>";
-            Database::ListaDistribuzioneTipologia();
+            Database::SelectDistribuzioneTipologia();
             
             echo "<br/>";
             echo "<br/>";

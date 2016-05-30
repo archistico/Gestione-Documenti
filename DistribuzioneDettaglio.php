@@ -49,5 +49,6 @@ class DistribuzioneDettaglio {
 
             print 'Exception : ' . $e->getMessage();
         }
+        return true;
     }
 }

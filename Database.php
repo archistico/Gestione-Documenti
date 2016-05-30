@@ -15,7 +15,7 @@
  */
 abstract class Database {
 
-    public static function ListaDistribuzioneTipologia() {
+    public static function SelectDistribuzioneTipologia() {
         print "<select name='idTipologia'>";
         
             /*
@@ -41,7 +41,7 @@ abstract class Database {
         print "</select>";
     }
     
-    public static function ListaOpere() {
+    public static function SelectOpere() {
 
         try {
             //open the database

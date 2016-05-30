@@ -6,7 +6,7 @@
     </head>
     <body>
         
-        <p>Nuova distribuzione<br/><a href="distribuzioneNuova.php">NUOVO</a></p>
+        <p>Nuova distribuzione<br/><a href="DistribuzioneNuova.php">NUOVO</a></p>
         
 <?php
 
@@ -40,7 +40,7 @@ $disdet = new DistribuzioneDettaglio($dis->GetIDbyDistribuzione(Tipologia::Fattu
 
 GetTabellaDistribuzione();
 GetTabellaOpere();
-GetTabellaDistribuzioneDettaglio();
+GetTabellaDistribuzioneDettaglioTotale();
 
 ?>
     </body>
