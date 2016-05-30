@@ -13,7 +13,7 @@ define('REPLACE_FLAGS', ENT_COMPAT | ENT_XHTML);
 include 'Utilita.php';
 include 'Distribuzione.php';
 
-$IdDistribuzione = $_GET["IdDistribuzione"];
+$IdDistribuzione = $_GET["idDistribuzione"];
  
 if(!empty($IdDistribuzione))
 {
