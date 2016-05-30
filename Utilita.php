@@ -79,7 +79,7 @@ function GetTabellaDistribuzioneDettaglio($idDistribuzione) {
         //now output the data to a simple html table...
         print "<h3>Tabella Distribuzione dettaglio</h3>";
         print "<table border=1 cellpadding=5>";
-        print "<tr><td>Id</td><td>Codice</td><td>Opera</td><td>Prezzo Unitario</td><td>Quantita</td><td>Sconto</td><td>Totale</td></tr>";
+        print "<tr><td>Id</td><td>Codice</td><td>Opera</td><td>Prezzo Unitario</td><td>Quantita</td><td>Sconto</td><td>Totale</td><td>Modifica</td></tr>";
         $result = $db->query('SELECT DistribuzioneDettaglio.id As IDdettaglio, DistribuzioneDettaglio.*, Distribuzione.*, Opera.* FROM DistribuzioneDettaglio, Distribuzione, Opera WHERE DistribuzioneDettaglio.fkDistribuzione = Distribuzione.Id AND DistribuzioneDettaglio.fkOpera = Opera.Id AND DistribuzioneDettaglio.fkDistribuzione = '.$idDistribuzione.' ORDER BY fkDistribuzione ASC');
         
         //DistribuzioneDettaglio (fkDistribuzione, fkOpera, quantita, sconto)
@@ -101,6 +101,7 @@ function GetTabellaDistribuzioneDettaglio($idDistribuzione) {
             $totale = round($totale*100)/100;
             $totaleDistribuzione += $totale;
             print "<td><strong>&euro; " . $totale . "</strong></td>";
+            print "<td><a href=DistribuzioneDettaglioElimina.php?idDistribuzioneDettaglio=" . $row['IDdettaglio'] . "&idDistribuzione=".$idDistribuzione.">Elimina</a></td>";
             print "</tr>";
         }
 
@@ -126,7 +127,7 @@ function GetTabellaDistribuzioneDettaglioTotale() {
         print "<h3>Tabella Distribuzione dettaglio - Generale</h3>";
         print "<table border=1 cellpadding=5>";
         print "<tr><td>Id</td><td>Codice</td><td>Opera</td><td>Prezzo Unitario</td><td>Quantita</td><td>Sconto</td><td>Totale</td></tr>";
-        $result = $db->query('SELECT DistribuzioneDettaglio.id As IDdettaglio, DistribuzioneDettaglio.*, Distribuzione.*, Opera.* FROM DistribuzioneDettaglio, Distribuzione, Opera WHERE DistribuzioneDettaglio.fkDistribuzione = Distribuzione.Id AND DistribuzioneDettaglio.fkOpera = Opera.Id ORDER BY fkDistribuzione ASC');
+        $result = $db->query('SELECT DistribuzioneDettaglio.id As IDdettaglio, DistribuzioneDettaglio.*, Distribuzione.*, Opera.* FROM DistribuzioneDettaglio, Distribuzione, Opera WHERE DistribuzioneDettaglio.fkDistribuzione = Distribuzione.Id AND DistribuzioneDettaglio.fkOpera = Opera.Id ORDER BY Distribuzione.anno ASC, Distribuzione.tipologia ASC, Distribuzione.numero ASC');
 
         //DistribuzioneDettaglio (fkDistribuzione, fkOpera, quantita, sconto)
 

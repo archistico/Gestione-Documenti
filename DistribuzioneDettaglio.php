@@ -51,4 +51,21 @@ class DistribuzioneDettaglio {
         }
         return true;
     }
+
+    public function Elimina($idDistribuzioneDettaglio) {
+        try {
+            //open the database
+            $db = new PDO('sqlite:helpbook.sqlite');
+
+            //insert some data...
+            $db->exec("DELETE FROM DistribuzioneDettaglio WHERE Id=" . $idDistribuzioneDettaglio . ";");
+
+            // close the database connection
+            $db = NULL;
+        } catch (PDOException $e) {
+
+            print 'Exception : ' . $e->getMessage();
+        }
+        return true;
+    }
 }
