@@ -16,7 +16,7 @@ include 'Distribuzione.php';
 $tipologia = $_GET["idTipologia"];
 $anno = $_GET["Anno"];
 
-if(empty($anno) || empty($tipologia))
+if(!empty($anno) || !empty($tipologia))
 {
     // CREA IL DOCUMENTO
     $dis = new Distribuzione($tipologia, $anno);
@@ -24,6 +24,7 @@ if(empty($anno) || empty($tipologia))
 else
 {
     print "<h2>Dati passati non validi</h2>";
+    die();
 }
 if($dis->Aggiungi()) {
     print "<h2>Elemento inserito correttamente</h2>";
