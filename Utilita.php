@@ -182,22 +182,43 @@ function GetTabellaOperePiuVendute() {
         //now output the data to a simple html table...
         print "<h3>Tabella Opere più vendute</h3>";
         print "<table border=1 cellpadding=5>";
-        print "<tr><td>Titolo</td><td>Conto deposito</td><td>Venduti</td></tr>";
-        $venduto =  $db->query('SELECT Opera.Titolo, SUM(quantita) AS venduto  FROM Distribuzione, DistribuzioneDettaglio, Opera WHERE Opera.Id=DistribuzioneDettaglio.fkOpera AND Distribuzione.Id=DistribuzioneDettaglio.fkDistribuzione AND (Distribuzione.Tipologia = 1 OR Distribuzione.Tipologia = 3) GROUP BY Opera.Titolo ORDER BY Opera.Titolo ASC');
-        $deposito = $db->query('SELECT Opera.Titolo, SUM(quantita) AS deposito FROM Distribuzione, DistribuzioneDettaglio, Opera WHERE Opera.Id=DistribuzioneDettaglio.fkOpera AND Distribuzione.Id=DistribuzioneDettaglio.fkDistribuzione AND Distribuzione.Tipologia = 2 GROUP BY Opera.Titolo ORDER BY Opera.Titolo ASC');
+        print "<tr><td>Titolo</td><td>Venduti</td><td>Conto deposito</td></tr>";
+        $result =  $db->query('SELECT O.Titolo, D.Tipologia, DD.quantita FROM Distribuzione D, DistribuzioneDettaglio DD, Opera O WHERE O.Id=DD.fkOpera AND D.Id=DD.fkDistribuzione ORDER BY O.Titolo ASC');
         
-        foreach ($venduto as $rowVenduto) {
-            //foreach ($deposito as $rowDeposito) {
-                //if((string)$rowVenduto['Titolo']==(string)$rowDeposito['Titolo']) {
-                    print "<td>" . $rowVenduto['Titolo'] . "</td>";
-                    print "<td>" . $rowVenduto['venduto'] . "</td>";
-                    //print "<td>" . $rowDeposito['deposito'] . "</td>";
-                //}
-                print "</tr>";
-            //}
+        class OperaConteggio
+        {
+            public $titolo;
+            public $venduti;
+            public $contodeposito;
         }
-
+        
+        $conteggio = array();
+        
+        foreach ($result as $row) {
+            if(!isset($conteggio[$row['Titolo']]))
+            {
+                $conteggio[$row['Titolo']] = new OperaConteggio();
+                $conteggio[$row['Titolo']]->titolo = $row['Titolo'];
+                $conteggio[$row['Titolo']]->venduti += 0;
+                $conteggio[$row['Titolo']]->contodeposito += 0;
+            }
+            if($row['Tipologia']==1 || $row['Tipologia']==3){
+                $conteggio[$row['Titolo']]->venduti += $row['quantita'];
+            }
+            if($row['Tipologia']==2){
+                $conteggio[$row['Titolo']]->contodeposito += $row['quantita'];
+            }
+        }
+        
+        foreach ($conteggio as $row) {
+            print "<td>" . $row->titolo . "</td>";
+            print "<td>" . $row->venduti . "</td>";
+            print "<td>" . $row->contodeposito . "</td>";
+            print "</tr>";
+            
+        }
         print "</table>";
+
 
         // close the database connection
 
