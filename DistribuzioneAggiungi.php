@@ -35,3 +35,4 @@ else
 }
 
 GetTabellaDistribuzione();
+echo "<br/><a href='index.php'>TORNA INDIETRO</a>";
